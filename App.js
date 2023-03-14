@@ -13,14 +13,13 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text>Open up App.js to start working on your app!</Text>
-      <View cla>
+      <View style={styles.input}>
         <TextInput
-            style={styles.input}
             mode="outlined"
             placeholder="Type something"
             onChangeText={handleInputChange}
             right={<TextInput.Affix text={text.length+"/100"} />}
-           
+            style={{ width: 300 }}
           />
       </View>
     
