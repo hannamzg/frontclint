@@ -1,24 +1,24 @@
 import { StyleSheet, Text, View } from 'react-native';
-import { Searchbar } from 'react-native-paper';
+import { TextInput } from 'react-native-paper';
 import * as React from 'react';
-import { Switch } from 'react-native-paper';
+
 export default function App() {
-  const [searchQuery, setSearchQuery] = React.useState('');
+  const [text, setText] = React.useState('');
 
-  const onChangeSearch = query => setSearchQuery(query);
+  const handleInputChange = (text) => {
+    setText(text);
+    console.log(text);
+  };
 
-  const [isSwitchOn, setIsSwitchOn] = React.useState(false);
-
-  const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
   return (
     <View style={styles.container}>
       <Text>Open up App.js to start working on your app!</Text>
-      <Searchbar
-      placeholder="Search"
-      onChangeText={onChangeSearch}
-      value={searchQuery}
+    <TextInput
+      mode="outlined"
+      placeholder="Type something"
+      onChangeText={handleInputChange}
+      right={<TextInput.Affix text={text.length+"/100"} />}
     />
-     <Switch value={isSwitchOn} onValueChange={onToggleSwitch} />
     </View>
   );
 }
