@@ -18,6 +18,7 @@ export default function App() {
       placeholder="Type something"
       onChangeText={handleInputChange}
       right={<TextInput.Affix text={text.length+"/100"} />}
+      style={styles.input}
     />
     </View>
   );
@@ -30,4 +31,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  input:{
+    width:"250px"
+  }
 });
