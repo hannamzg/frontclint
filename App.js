@@ -13,13 +13,17 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text>Open up App.js to start working on your app!</Text>
-    <TextInput
-      mode="outlined"
-      placeholder="Type something"
-      onChangeText={handleInputChange}
-      //right={<TextInput.Affix text={text.length+"/100"} />}
-      style={styles.input}
-    />
+      <View cla>
+        <TextInput
+            style={styles.input}
+            mode="outlined"
+            placeholder="Type something"
+            onChangeText={handleInputChange}
+            right={<TextInput.Affix text={text.length+"/100"} />}
+           
+          />
+      </View>
+    
     </View>
   );
 }
@@ -32,6 +36,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   input:{
-   minWidth:"250px"
+    width:"300px"
   }
 });
