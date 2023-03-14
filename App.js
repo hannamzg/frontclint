@@ -17,7 +17,7 @@ export default function App() {
       mode="outlined"
       placeholder="Type something"
       onChangeText={handleInputChange}
-      right={<TextInput.Affix text={text.length+"/100"} />}
+      //right={<TextInput.Affix text={text.length+"/100"} />}
       style={styles.input}
     />
     </View>
