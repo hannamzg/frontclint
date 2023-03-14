@@ -32,6 +32,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   input:{
-    width:"250px"
+   minWidth:"250px"
   }
 });
