@@ -17,6 +17,7 @@ const SignInPage = ({ navigation }) => {
         value={email}
         onChangeText={setEmail}
         style={styles.input}
+        placeholderTextColor={'red'}
       />
       <TextInput
         placeholder="Password"

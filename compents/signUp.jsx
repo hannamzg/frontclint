@@ -41,7 +41,7 @@ const SignUpPage = ({ navigation }) => {
       <TouchableOpacity style={styles.button} onPress={handleSignUp}>
         <Text style={styles.buttonText} onPress={()=>Toast.show({
         type: 'success',
-        position: 'bottom',
+        position: 'top',
         text1: 'Success!',
         text2: 'You successfully completed the action.',
         visibilityTime: 2000,
@@ -53,7 +53,7 @@ const SignUpPage = ({ navigation }) => {
       <TouchableOpacity style={styles.signIn} onPress={handleClick}>
         <Text style={styles.signInText}>Already have an account? Sign In</Text>
       </TouchableOpacity>
-      
+     
     </View>
   );
 };
