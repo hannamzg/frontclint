@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import Home from "./pages/home.jsx";
+import Massages from "./pages/messages.jsx"
 import * as React from "react";
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -11,8 +12,9 @@ export default function App() {
 
   return (
   <NavigationContainer>
-    <Stack.Navigator initialRouteName="home">
-      <Stack.Screen name="home" component={Home} />
+    <Stack.Navigator initialRouteName="home" /* headerMode="none" */>
+      <Stack.Screen name="chats" component={Home} />
+      <Stack.Screen name="Massages" component={Massages} />
     </Stack.Navigator>
   </NavigationContainer>
   )
