@@ -11,7 +11,9 @@ export default function App() {
   };
 
   return (
-    <View >
+    
+    <View style={styles.body}>
+      
       <View style={styles.nav}>
           <Text style={styles.TextNav}>chats</Text>
           <Text style={styles.TextNav}>name</Text>
@@ -32,13 +34,16 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
+  body:{
+     marginTop:"70px"
+  },
   nav: {
     display:"flex",
     flexDirection:"row",
     justifyContent: 'space-between',
     width:"100vw",
     alignItems:"center",
-    marginTop:"70px",
+   
     borderBottomColor: 'black',
     borderBottomWidth: 0.5,
   },
