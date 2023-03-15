@@ -17,7 +17,7 @@ const SignInPage = ({ navigation }) => {
         value={email}
         onChangeText={setEmail}
         style={styles.input}
-        placeholderTextColor={'red'}
+        placeholderTextColor={'black'}
       />
       <TextInput
         placeholder="Password"
@@ -25,6 +25,7 @@ const SignInPage = ({ navigation }) => {
         onChangeText={setPassword}
         secureTextEntry={true}
         style={styles.input}
+        placeholderTextColor={'black'}
       />
       <TouchableOpacity style={styles.button} onPress={handleSignIn}>
         <Text style={styles.buttonText}>Sign In</Text>

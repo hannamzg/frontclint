@@ -24,18 +24,21 @@ const SignUpPage = ({ navigation }) => {
         value={name}
         onChangeText={setName}
         style={styles.input}
+        placeholderTextColor={'black'}
       />
       <TextInput
         placeholder="Email"
         value={email}
         onChangeText={setEmail}
         style={styles.input}
+        placeholderTextColor={'black'}
       />
       <TextInput
         placeholder="Password"
         value={password}
         onChangeText={setPassword}
         secureTextEntry={true}
+        placeholderTextColor={'black'}
         style={styles.input}
       />
       <TouchableOpacity style={styles.button} onPress={handleSignUp}>
