@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import * as React from "react";
-import Card from "../compents/card";
-import SearchInput from "../compents/input";
+import Card from "../compents/card.jsx";
+import SearchInput from "../compents/input.jsx";
 
 export default function Home({ navigation }) {
   return (
