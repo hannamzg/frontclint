@@ -34,7 +34,7 @@ export default function App() {
 
 const styles = StyleSheet.create({
   body:{
-     marginTop:70
+     marginTop:40
   },
   nav: {
     display:"flex",
