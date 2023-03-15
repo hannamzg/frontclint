@@ -38,9 +38,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width:"100vw",
     alignItems:"center",
+    marginTop:"70px",
     borderBottomColor: 'black',
     borderBottomWidth: 0.5,
-    paddingTop:"150px",
   },
 
   input:{
