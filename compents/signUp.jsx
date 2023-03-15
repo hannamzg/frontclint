@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, TextInput, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import Toast from 'react-native-toast-message';
 
 const SignUpPage = ({ navigation }) => {
   const [name, setName] = useState('');
@@ -38,11 +39,21 @@ const SignUpPage = ({ navigation }) => {
         style={styles.input}
       />
       <TouchableOpacity style={styles.button} onPress={handleSignUp}>
-        <Text style={styles.buttonText}>Sign Up</Text>
+        <Text style={styles.buttonText} onPress={()=>Toast.show({
+        type: 'success',
+        position: 'bottom',
+        text1: 'Success!',
+        text2: 'You successfully completed the action.',
+        visibilityTime: 2000,
+        autoHide: true,
+        topOffset: 30,
+        bottomOffset: 40
+      })}>Sign Up</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.signIn} onPress={handleClick}>
         <Text style={styles.signInText}>Already have an account? Sign In</Text>
       </TouchableOpacity>
+      
     </View>
   );
 };
