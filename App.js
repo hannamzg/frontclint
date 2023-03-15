@@ -13,9 +13,12 @@ export default function App() {
   return (
     
     <View style={styles.body}>
-      
       <View style={styles.nav}>
-          <Text style={styles.TextNav}>chats</Text>
+          <Text style={styles.TextNav}>chat</Text>
+          <Text style={styles.TextNav}>name</Text>
+      </View>
+      <View style={styles.nav}>
+          <Text style={styles.TextNav}>chat</Text>
           <Text style={styles.TextNav}>name</Text>
       </View>
       
