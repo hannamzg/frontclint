@@ -3,7 +3,6 @@ import { TouchableOpacity,View, Text, Image, StyleSheet } from 'react-native';
 
 function Card(prop) {
   const handleClick = () => {
-     console.log(prop.navigation);
     prop.navigation.navigate('Massages')
    
   };
