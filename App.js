@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View  } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import * as React from 'react';
 
@@ -11,8 +11,12 @@ export default function App() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+    <View >
+      <View style={styles.nav}>
+          <Text style={styles.TextNav}>chats</Text>
+          <Text style={styles.TextNav}>name</Text>
+      </View>
+      
       <View style={styles.input}>
         <TextInput
             mode="outlined"
@@ -28,13 +32,21 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+  nav: {
+    display:"flex",
+    flexDirection:"row",
+    justifyContent: 'space-between',
+    width:"100vw",
+    alignItems:"center",
+    borderBottomColor: 'black',
+    borderBottomWidth: 0.5,
   },
+
   input:{
     width:"300px"
+  },
+  TextNav:{
+    margin:"20px",
   }
+
 });
