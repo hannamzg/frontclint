@@ -1,13 +1,13 @@
 import { StyleSheet, Text, View  } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import * as React from 'react';
+import Chats from "./compents/cahts.jsx"
 
 export default function App() {
   const [text, setText] = React.useState('');
 
   const handleInputChange = (text) => {
     setText(text);
-    console.log(text);
   };
 
   return (
@@ -24,10 +24,10 @@ export default function App() {
             placeholder="Type something"
             onChangeText={handleInputChange}
             right={<TextInput.Affix text={text.length+"/100"} />}
-            style={{ width: 300 }}
+            style={{ width: 300,}}
           />
       </View>
-    
+     <Chats/>
     </View>
   );
 }
@@ -48,8 +48,13 @@ const styles = StyleSheet.create({
   },
 
   input:{
-    width:"300px"
+    display:"flex",
+    justifyContent:"center",
+    alignItems:"center",
+    width:"100%",
+    marginTop:20,
   },
+
   TextNav:{
     margin:20,
   }
