@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     width:"300px"
   },
   TextNav:{
-    margin:"20px",
+    margin:20,
   }
 
 });
