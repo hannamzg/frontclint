@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState ,useCallback} from 'react';
 import { View, TextInput, Text, TouchableOpacity, StyleSheet,Button } from 'react-native';
 import Toast from 'react-native-toast-message';
 
@@ -8,8 +8,8 @@ const SignUpPage = ({ navigation }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [photo, setPhoto] = useState(null);
-
+  const [photo, setPhotoURI] = useState(null);
+  
   const handleSignUp = () => {
     // Handle sign-up logic here
   };
@@ -43,13 +43,23 @@ const SignUpPage = ({ navigation }) => {
     });
   }; */
 
-  const handlePhotoUpload = () => {
-    const option ={};
-    ImagePicker.launchImageLibrary(option,response=>{
-      console.log(response);
-    })
-  }; 
 
+
+
+
+    const handlePhotoUpload = useCallback(() => {
+      ImagePicker.launchCamera({}, (response) => {
+        console.log('Respuesta =', response);
+        setPhotoURI(response.uri); // update the local state, this will rerender your TomarFoto component with the photo uri path.
+        if (response.didCancel) {
+          alert('Subida cancelada');
+        } else if (response.error) {
+          alert('Error encontrado: ', error);
+        } else {
+          const source = {uri:response.uri};
+        }
+      });
+    })
 
   return (
     <View style={styles.container}>
