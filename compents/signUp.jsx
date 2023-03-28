@@ -1,17 +1,28 @@
-import React, { useState ,useCallback} from 'react';
-import { View, TextInput, Text, TouchableOpacity, StyleSheet,Button } from 'react-native';
+import React, { useState } from 'react';
+import { View, TextInput, Text, TouchableOpacity, StyleSheet,Button,Image } from 'react-native';
 import Toast from 'react-native-toast-message';
-
+import {singUpServer} from '../server/auth/singUp.js'
 import * as ImagePicker from 'react-native-image-picker';
 
 const SignUpPage = ({ navigation }) => {
   const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const [username, setusername] = useState('');
   const [password, setPassword] = useState('');
-  const [photo, setPhotoURI] = useState(null);
-  
+  const [photo, setPhoto] = useState(null);
+
   const handleSignUp = () => {
-    // Handle sign-up logic here
+    console.log(photo);
+    try{
+      singUpServer(name,username,password,photo).then((data)=>{
+        console.log(data);
+      }).catch((err)=>{
+        console.log(err);
+      })
+      
+    }    
+    catch(err){
+      console.log(err);
+    }
   };
 
   const handleClick = () => { 
@@ -23,43 +34,23 @@ const SignUpPage = ({ navigation }) => {
   };
 
 
-  /* const handlePhotoUpload = () => {
+  const handleChoosePhoto = () => {
     const options = {
-      title: 'Select Profile Picture',
-      storageOptions: {
-        skipBackup: true,
-        path: 'images',
-      },
+      mediaType: 'photo',
+      quality: 1,
+      includeBase64: true,
     };
-
-    ImagePicker.showImagePicker(options, (response) => {
+    ImagePicker.launchImageLibrary(options, response => {
       if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
+        console.log('User cancelled photo picker');
+      } else if (response.errorMessage) {
+        console.log('ImagePicker Error: ', response.errorMessage);
       } else {
-        setPhoto(response.uri);
+        console.log(response.assets[0]);
+        setPhoto(response.assets[0]);
       }
     });
-  }; */
-
-
-
-
-
-    const handlePhotoUpload = useCallback(() => {
-      ImagePicker.launchCamera({}, (response) => {
-        console.log('Respuesta =', response);
-        setPhotoURI(response.uri); // update the local state, this will rerender your TomarFoto component with the photo uri path.
-        if (response.didCancel) {
-          alert('Subida cancelada');
-        } else if (response.error) {
-          alert('Error encontrado: ', error);
-        } else {
-          const source = {uri:response.uri};
-        }
-      });
-    })
+  };
 
   return (
     <View style={styles.container}>
@@ -73,8 +64,8 @@ const SignUpPage = ({ navigation }) => {
       />
       <TextInput
         placeholder="user name"
-        value={email}
-        onChangeText={setEmail}
+        value={username}
+        onChangeText={setusername}
         style={styles.input}
         placeholderTextColor={'black'}
       />
@@ -87,27 +78,27 @@ const SignUpPage = ({ navigation }) => {
         style={styles.input}
       />
 
-      <TouchableOpacity onPress={handlePhotoUpload}>
-        <View style={styles.photoContainer}>
-          {photo ? (
-            <Image source={{ uri: photo }} style={styles.photo} />
-          ) : (
-            <Text style={styles.photoPlaceholder}>Upload Photo</Text>
-          )}
-        </View>
-      </TouchableOpacity>   
+      <View>
+        {photo && <Image source={{ uri: photo.uri }} style={{ width: 200, height: 200 }} />}
+        <Button title="Choose Photo" onPress={handleChoosePhoto} />
+      </View>
+    
+     
 
-      <TouchableOpacity style={styles.button} onPress={handleSignUp}>
-        <Text style={styles.buttonText} onPress={()=>Toast.show({
-        type: 'success',
-        position: 'top',
-        text1: 'Success!',
-        text2: 'You successfully completed the action.',
-        visibilityTime: 2000,
-        autoHide: true,
-        topOffset: 60,
-        bottomOffset: 40
-      })}>Sign Up</Text>
+      <TouchableOpacity style={styles.button} onPress={()=>{
+        handleSignUp()
+        Toast.show({
+          type: 'success',
+          position: 'top',
+          text1: 'Success!',
+          text2: 'You successfully completed the action.',
+          visibilityTime: 2000,
+          autoHide: true,
+          topOffset: 60,
+          bottomOffset: 40
+        })
+      }}>
+        <Text style={styles.buttonText} >Sign Up</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.signIn} onPress={handleClick}>
