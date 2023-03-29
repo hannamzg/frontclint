@@ -1,21 +1,40 @@
 import React, { useState } from 'react';
 import { View, TextInput, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import {singinServer} from '../server/auth/singin';
 
 const SignInPage = ({ navigation }) => {
-  const [email, setEmail] = useState('');
+  const [username, setusername] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSignIn = () => {
+    console.log(username,password);
     // Handle sign-in logic here
-  };
+    try{
+      singinServer(username,password).then((data)=>{
+        /* if (data) {
+          navigation.navigate('SignInPage')
+        } */
+        console.log(data);
+      }).catch((err)=>{
+        console.log(err);
+      })
+      
+    }    
+    catch(err){
+      console.log(err);
+    }
+  }; 
+    
+  
+
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Welcome back!</Text>
       <TextInput
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
+        placeholder="username"
+        value={username}
+        onChangeText={setusername}
         style={styles.input}
         placeholderTextColor={'black'}
       />

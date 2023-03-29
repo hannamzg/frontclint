@@ -14,6 +14,9 @@ const SignUpPage = ({ navigation }) => {
     console.log(photo);
     try{
       singUpServer(name,username,password,photo).then((data)=>{
+        if (data) {
+          navigation.navigate('SignInPage')
+        }
         console.log(data);
       }).catch((err)=>{
         console.log(err);
