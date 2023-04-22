@@ -10,7 +10,7 @@ export default function Massages(id) {
 
   let myCookies=Cookies.get();
   console.log(myCookies.user);
-
+  
   useEffect(()=>{
     try{
       getChats(id.route.params.id).then((data)=>{
