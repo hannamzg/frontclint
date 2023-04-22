@@ -3,15 +3,34 @@ import { View, TextInput, Text, TouchableOpacity, StyleSheet,Button,Image } from
 import Toast from 'react-native-toast-message';
 import {singUpServer} from '../server/auth/singUp.js'
 import * as ImagePicker from 'react-native-image-picker';
+import Cookies from 'js-cookie';
 
 const SignUpPage = ({ navigation }) => {
   const [name, setName] = useState('');
   const [username, setusername] = useState('');
   const [password, setPassword] = useState('');
   const [photo, setPhoto] = useState(null);
+  let myCookies=Cookies.get()
+
+   if (myCookies) {
+    console.log(123);
+    navigation.navigate('chats')
+  } 
 
   const handleSignUp = () => {
-    console.log(photo);
+    if (name.length==0||photo.length==0||username.length==0||password.length==0) {
+      Toast.show({
+        type: 'error',
+        position: 'top',
+        text1: 'Success!',
+        text2: 'You successfully completed the action.',
+        visibilityTime: 2000,
+        autoHide: true,
+        topOffset: 60,
+        bottomOffset: 40
+      })
+      return 
+    }
     try{
       singUpServer(name,username,password,photo).then((data)=>{
         if (data) {
@@ -29,7 +48,6 @@ const SignUpPage = ({ navigation }) => {
   };
 
   const handleClick = () => { 
-    console.log(12);
     navigation.navigate('SignInPage')
    
     console.log(ImagePicker);
@@ -90,16 +108,7 @@ const SignUpPage = ({ navigation }) => {
 
       <TouchableOpacity style={styles.button} onPress={()=>{
         handleSignUp()
-        Toast.show({
-          type: 'success',
-          position: 'top',
-          text1: 'Success!',
-          text2: 'You successfully completed the action.',
-          visibilityTime: 2000,
-          autoHide: true,
-          topOffset: 60,
-          bottomOffset: 40
-        })
+        
       }}>
         <Text style={styles.buttonText} >Sign Up</Text>
       </TouchableOpacity>

@@ -2,18 +2,14 @@ import React from 'react';
 import { TouchableOpacity,View, Text, Image, StyleSheet } from 'react-native';
 
 function Card(prop) {
-  const handleClick = () => {
-    prop.navigation.navigate('Massages')
-   
-  };
+  
   
   return (
-    <TouchableOpacity onPress={handleClick}>
+ 
       <View style={styles.card} >
-        <Image source={prop.imageSource} style={styles.image} />
+        <Image source={{uri:prop.imageSource}} style={styles.image} resizeMode="contain"/>
         <Text style={styles.name}>{prop.name}</Text>
       </View>
-    </TouchableOpacity>
   );  
 }
 

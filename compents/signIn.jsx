@@ -1,21 +1,41 @@
 import React, { useState } from 'react';
 import { View, TextInput, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import {singinServer} from '../server/auth/singin';
+import Toast from 'react-native-toast-message';
 
 const SignInPage = ({ navigation }) => {
   const [username, setusername] = useState('');
   const [password, setPassword] = useState('');
-
+  
   const handleSignIn = () => {
     console.log(username,password);
     // Handle sign-in logic here
     try{
       singinServer(username,password).then((data)=>{
-        /* if (data) {
-          navigation.navigate('SignInPage')
-        } */
-        console.log(data);
+        Toast.show({
+          type: 'success',
+          position: 'top',
+          text1: 'Success!',
+          text2: data.data,
+          visibilityTime: 2000,
+          autoHide: true,
+          topOffset: 60,
+          bottomOffset: 40,
+          backgroundColor: 'red',
+        })
+        navigation.navigate('chats')
       }).catch((err)=>{
+        Toast.show({
+          type: 'error',
+          position: 'top',
+          text1: 'error',
+          text2: err.message,          
+          visibilityTime: 2000,
+          autoHide: true,
+          topOffset: 60,
+          bottomOffset: 40,
+         
+        })
         console.log(err);
       })
       
