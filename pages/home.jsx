@@ -10,7 +10,7 @@ import {getUsers} from '../server/chats/getUsers.js'
 export default function Home({ navigation }) {
   const handleClick = (data,id) => {
     console.log(data);
-    navigation.navigate( {name: 'Massages', params: { id: id }})
+    navigation.navigate( {name: 'Massages', params: { id: id,data:data } })
   };
 
   let myCookies=Cookies.get();

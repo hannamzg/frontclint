@@ -1,21 +1,35 @@
 import { StyleSheet, Text,  FlatList,View ,Button,TextInput,TouchableOpacity} from "react-native";
 import { useState,useEffect  } from "react";
 import {getChats} from '../server/chats/getChats';
+import {sendChat} from "../server/chats/sentChat";
 import * as React from "react";
 import Cookies from 'js-cookie';
 import moment from 'moment';
 
 export default function Massages(id) {
   const [messagesData,setMessagesData]=useState();
+  const [inputValue, setInputValue] = useState('');
+  const [him,setHim]=useState();
 
   let myCookies=Cookies.get();
-  console.log(myCookies.user);
   
+  console.log(myCookies.user);
+  const handleInputChange = (text) => {
+    setInputValue(text);
+  };
+
   useEffect(()=>{
     try{
       getChats(id.route.params.id).then((data)=>{
         setMessagesData(data.data)
         console.log(data);
+        if (Number(myCookies.user)===data.data[0].me) {
+          setHim(data.data[0].him)
+        } 
+        else{
+          setHim(data.data[0].me)
+        }
+      
       }).catch((err)=>{
         console.log(err);
       })
@@ -25,38 +39,35 @@ export default function Massages(id) {
       console.log(err);
     }
   },[])
+  console.log(him);
+  const handleSendChat = (me,him,chatId,theChat) => {
 
-  /* const messagesData = [
-    {
-      id: '1',
-      sender: 'John',
-      message: 'Hey, what\'s up?',
-      timestamp: '9:15 AM',
-    },
-    {
-      id: '2',
-      sender: 'Mary',
-      message: 'Nothing much, just hanging out. How about you?',
-      timestamp: '9:30 AM',
-    },
-    {
-      id: '3',
-      sender: 'John',
-      message: 'Same here. Want to grab lunch later?',
-      timestamp: '9:35 AM',
-    },
-  ]; */
+    try{
+      sendChat(me,him,chatId,theChat).then((data)=>{
+   
+        console.log(data);
+      }).catch((err)=>{
+        console.log(err);
+      })
+      
+    }    
+    catch(err){
+      console.log(err);
+    }
+  };
+
  
   return (
     <View style={styles.container}>
       
       <View style={styles.Conme} >
       {messagesData&& messagesData.map((elemnt)=>{
-      return (elemnt.me === Number(myCookies.user) ? <View  style={styles.me}>
+        console.log(elemnt);
+      return (elemnt.me === Number(myCookies.user) ? <View  style={styles.me} key={elemnt.id}>
             <View >{elemnt.theChat}</View>
             <View>{ moment(elemnt.createAt).format('MMMM  YYYY') }</View>
           </View>:
-          <View  style={styles.him}>
+          <View  style={styles.him} key={elemnt.id}>
             <View >{elemnt.theChat}</View>
             <View>{ moment(elemnt.createAt).format('MMMM  YYYY') }</View>
           </View>)
@@ -64,8 +75,9 @@ export default function Massages(id) {
       }    
       </View>
       <View style={styles.inputDiv}>
-         <TextInput style={styles.input} placeholder={"what in your maind"}/>
-         <TouchableOpacity style={styles.Send}>+</TouchableOpacity>
+         <TextInput style={styles.input} value={inputValue}
+        onChangeText={handleInputChange} placeholder={"what in your maind"}/>
+         <TouchableOpacity style={styles.Send} onPress={()=>handleSendChat(myCookies.user,him,id.route.params.data.IdChat,inputValue)}>+</TouchableOpacity>
       </View>
        
     </View>

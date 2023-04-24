@@ -6,30 +6,27 @@ import SignUpPage from './compents/signUp.jsx';
 import Toast from 'react-native-toast-message';
 import * as React from "react";
 import { NavigationContainer, StackActions } from '@react-navigation/native';
+
 import { createStackNavigator } from '@react-navigation/stack';
-import {logout} from './server/auth/logout.js';
+/* import CookieManager from '@react-native-cookies/cookies'; */
+ import {logout} from './server/auth/logout.js'; 
 /* import Card from "./compents/card.jsx";
 import SearchInput from "./compents/input.jsx"; */
 
 export default function App() {
   const Stack = createStackNavigator();
 
-  const handleLogout = () => {
+   const handleLogout = () => {
+     logout()
+    .then((success) => { 
+     navigation.navigate('SignInPage')
+      console.log('Cookies cleared', success);
+    })
+    .catch((error) => {
+      console.log('Error clearing cookies', error);
+    }); 
    
-    try{
-      logout().then((data)=>{
-        if (data) {
-          navigation.navigate('SignInPage')
-        }
-        console.log(data);
-      }).catch((err)=>{
-        console.log(err);
-      })
-    }   
-    catch(err){
-      console.log(err);
-    }
-  };
+  }; 
 
   return (
     <> 

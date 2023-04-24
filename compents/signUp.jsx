@@ -3,20 +3,21 @@ import { View, TextInput, Text, TouchableOpacity, StyleSheet,Button,Image } from
 import Toast from 'react-native-toast-message';
 import {singUpServer} from '../server/auth/singUp.js'
 import * as ImagePicker from 'react-native-image-picker';
-/* import Cookies from 'js-cookie'; */
+import Cookies from 'js-cookie'; 
 
 const SignUpPage = ({ navigation }) => {
   const [name, setName] = useState('');
   const [username, setusername] = useState('');
   const [password, setPassword] = useState('');
   const [photo, setPhoto] = useState(null);
-  /* let myCookies=Cookies.get()
+  
+ /*   let myCookies=Cookies.get()
+   console.log(myCookies);
 
-   if (myCookies) {
-    console.log(123);
+   if (typeof(myCookies.user)==="string" ) {
     navigation.navigate('chats')
-  } 
- */
+  }  */
+ 
   const handleSignUp = () => {
     if (name.length==0||photo.length==0||username.length==0||password.length==0) {
       Toast.show({
