@@ -16,7 +16,6 @@ export default function Home({ navigation }) {
   let myCookies=Cookies.get();
 
   const [users,setUsers]=useState();
-
   useEffect(()=>{
     try{
       getUsers(myCookies.user).then((data)=>{
@@ -36,7 +35,7 @@ export default function Home({ navigation }) {
   return (
     <View style={styles.body}>
       
-      <SearchInput />
+      <SearchInput navigation={ navigation }/>
 
       {users&& users.map((data)=>{
       return <TouchableOpacity key={data.id} onPress={()=>handleClick(data,data.IdChat)}>

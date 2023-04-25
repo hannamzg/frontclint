@@ -10,14 +10,14 @@ const SignUpPage = ({ navigation }) => {
   const [username, setusername] = useState('');
   const [password, setPassword] = useState('');
   const [photo, setPhoto] = useState(null);
-  
- /*   let myCookies=Cookies.get()
+  /* 
+  let myCookies=Cookies.get()
    console.log(myCookies);
 
-   if (typeof(myCookies.user)==="string" ) {
+  if (typeof(myCookies.user)==="string" ) {
     navigation.navigate('chats')
-  }  */
- 
+  }  
+  */
   const handleSignUp = () => {
     if (name.length==0||photo.length==0||username.length==0||password.length==0) {
       Toast.show({
