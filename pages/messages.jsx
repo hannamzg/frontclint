@@ -20,7 +20,6 @@ export default function Massages(id) {
     setInputValue(text);
   };
 
-  console.log(id);
 
   useEffect(()=>{
     try{
@@ -40,7 +39,6 @@ export default function Massages(id) {
 
      try{
       getWithHo(id.route.params.data.id).then((data)=>{
-        console.log(data);
         if (Number(myCookies.user)===data.data[0].me) {
             setHim(data.data[0].chatWith)
         } 
@@ -67,7 +65,6 @@ export default function Massages(id) {
     try{
       sendChat(me,him,chatId,theChat).then((data)=>{
         setInputValue('')
-        console.log(data);
       }).catch((err)=>{
         console.log(err);
       })
@@ -90,7 +87,6 @@ export default function Massages(id) {
           <Text style={styles.HimName}>{id.route.params.data.name}</Text>
         </View>
       {messagesData&& messagesData.map((elemnt)=>{
-        console.log(elemnt);
       return (elemnt.me === Number(myCookies.user) ? <View  style={styles.me} key={elemnt.id}>
             <Text  style={styles.meChat}>{elemnt.theChat}</Text>
             <Text style={styles.meChat}>{ moment(elemnt.createAt).format('MMMM  YYYY') }</Text>

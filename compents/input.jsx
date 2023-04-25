@@ -1,6 +1,7 @@
 import React, { useState,useEffect } from 'react';
 import { View, Text, Modal, TextInput, FlatList, TouchableOpacity , StyleSheet} from 'react-native';import styled from 'styled-components/native';
-import {serachByName} from '../server/chats/serachByName'
+import {serachByName} from '../server/chats/serachByName';
+import {CheckIfThirIsMaseeg} from '../server/chats/CheckIfThirIsMaseeg'
 import Cookies from 'js-cookie';
 
 function SearchInput({ navigation }) {
@@ -24,9 +25,31 @@ function SearchInput({ navigation }) {
     setFilteredOptions(options);
   }; */
 
-  const handleClick = (data,id) => {
+  const handleClick = async (data,id) => {
     console.log(data);
-    navigation.navigate( {name: 'Massages', params: { id: id,data:data } })
+    try{
+    await  CheckIfThirIsMaseeg(myCookies.user,data.chatWith).then((dataa)=>
+      {
+        console.log(dataa.data);
+        if (dataa.data.length === 0) {
+            console.log("in");
+          return 
+        }
+        else{
+          navigation.navigate( {name: 'Massages', params: { id: id,data:dataa.data[0] } })
+        } 
+        console.log(data);
+        console.log(data.data);
+      }
+      ).catch((err)=>{
+        console.log(err);
+      })
+          
+      }    
+      catch(err){
+        console.log(err);
+      }
+   
     setModalVisible(false)
   };
  
