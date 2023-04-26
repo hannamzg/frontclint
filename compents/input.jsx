@@ -5,7 +5,7 @@ import {CheckIfThirIsMaseeg} from '../server/chats/CheckIfThirIsMaseeg';
 import {AddToStartChat} from '../server/chats/AddToStartChat';
 import Cookies from 'js-cookie';
 
-function SearchInput({ navigation }) {
+function SearchInput({ navigation,setHasBeenChange }) {
   const [searchText, setSearchText] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [AskToAddHim,setAskToAddHim]=useState(false);
@@ -14,7 +14,7 @@ function SearchInput({ navigation }) {
 
   let myCookies=Cookies.get();
 
-  
+ 
    const handleSearch = text => {
     setSearchText(text);
    
@@ -26,6 +26,7 @@ function SearchInput({ navigation }) {
       {        
         console.log(data);
         handleClick(dataOfHim,dataOfHim.IdChat)
+        setHasBeenChange(true)
       }
       ).catch((err)=>{
         console.log(err);

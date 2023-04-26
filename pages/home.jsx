@@ -8,12 +8,18 @@ import {getUsers} from '../server/chats/getUsers.js'
 
 
 export default function Home({ navigation }) {
+  const [hasBeenChange,setHasBeenChange]=useState(false)
+
   const handleClick = (data,id) => {
     console.log(data);
     navigation.navigate( {name: 'Massages', params: { id: id,data:data } })
   };
 
   let myCookies=Cookies.get();
+
+
+  console.log(hasBeenChange);
+
 
   const [users,setUsers]=useState();
   useEffect(()=>{
@@ -29,13 +35,14 @@ export default function Home({ navigation }) {
     catch(err){
       console.log(err);
     }
-  },[])
+    setHasBeenChange(false)
+  },[hasBeenChange])
   
   
   return (
     <View style={styles.body}>
       
-      <SearchInput navigation={ navigation }/>
+      <SearchInput navigation={ navigation } setHasBeenChange={setHasBeenChange}/>
 
       {users&& users.map((data)=>{
       return <TouchableOpacity key={data.id} onPress={()=>handleClick(data,data.IdChat)}>
