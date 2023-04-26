@@ -1,7 +1,8 @@
 import React, { useState,useEffect } from 'react';
 import { View, Text, Modal, TextInput, FlatList, TouchableOpacity , StyleSheet} from 'react-native';import styled from 'styled-components/native';
 import {serachByName} from '../server/chats/serachByName';
-import {CheckIfThirIsMaseeg} from '../server/chats/CheckIfThirIsMaseeg'
+import {CheckIfThirIsMaseeg} from '../server/chats/CheckIfThirIsMaseeg';
+import {AddToStartChat} from '../server/chats/AddToStartChat';
 import Cookies from 'js-cookie';
 
 function SearchInput({ navigation }) {
@@ -18,7 +19,23 @@ function SearchInput({ navigation }) {
     setSearchText(text);
    
   }; 
-
+  
+  const handleAddToStartChat =(me ,him)=>{
+    try{
+      AddToStartChat(Number(me),him).then((data)=>
+      {        
+        console.log(data);
+        handleClick(dataOfHim,dataOfHim.IdChat)
+      }
+      ).catch((err)=>{
+        console.log(err);
+      })
+          
+      }    
+      catch(err){
+        console.log(err);
+      }
+  }
 
 
   const handleClick =  (data,id) => {
@@ -63,6 +80,7 @@ function SearchInput({ navigation }) {
     catch(err){
       console.log(err);
     }
+
   },[searchText])
 
   return (
@@ -81,7 +99,7 @@ function SearchInput({ navigation }) {
             <TouchableOpacity style={styles.closeTheAskHim} onPress={() => setAskToAddHim(false)}><View  >close</View></TouchableOpacity> 
             <View>
               <Text style={styles.AskToAddHimText}>do you whant to start Chat with {dataOfHim.name}</Text>
-              <TouchableOpacity style={styles.addBtn}><Text style={{color:"white"}}>add {dataOfHim.name}</Text></TouchableOpacity> 
+              <TouchableOpacity style={styles.addBtn} onPress={()=>handleAddToStartChat(myCookies.user,dataOfHim.id)}><Text style={{color:"white"}}>add {dataOfHim.name}</Text></TouchableOpacity> 
             </View>
               
 
