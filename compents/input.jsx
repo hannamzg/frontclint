@@ -5,11 +5,12 @@ import {CheckIfThirIsMaseeg} from '../server/chats/CheckIfThirIsMaseeg'
 import Cookies from 'js-cookie';
 
 function SearchInput({ navigation }) {
- /*  const options = [  { label: 'Option 1', value: '1' },  { label: 'Option 2', value: '2' },  { label: 'Option 3', value: '3' },  { label: 'Option 4', value: '4' },  { label: 'Option 5', value: '5' },]; */
   const [searchText, setSearchText] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
-/*   const [filteredOptions, setFilteredOptions] = useState(options); */
+  const [AskToAddHim,setAskToAddHim]=useState(false);
   const [users,setUsers]=useState();
+  const [dataOfHim,setDataOfHim]=useState("")
+
   let myCookies=Cookies.get();
 
   
@@ -18,24 +19,20 @@ function SearchInput({ navigation }) {
    
   }; 
 
- /*  const handleSelect = option => {
-    onSelect(option);
-    setModalVisible(false);
-    setSearchText('');
-    setFilteredOptions(options);
-  }; */
 
-  const handleClick = async (data,id) => {
-    console.log(data);
+
+  const handleClick =  (data,id) => {
+    setDataOfHim(data)
     try{
-    await  CheckIfThirIsMaseeg(myCookies.user,data.chatWith).then((dataa)=>
+      CheckIfThirIsMaseeg(myCookies.user,data.id).then((dataa)=>
       {
         console.log(dataa.data);
         if (dataa.data.length === 0) {
-            console.log("in");
+         
           return 
         }
         else{
+          setModalVisible(false)
           navigation.navigate( {name: 'Massages', params: { id: id,data:dataa.data[0] } })
         } 
         console.log(data);
@@ -49,8 +46,8 @@ function SearchInput({ navigation }) {
       catch(err){
         console.log(err);
       }
-   
-    setModalVisible(false)
+    setAskToAddHim(true)
+    //
   };
  
 
@@ -58,7 +55,6 @@ function SearchInput({ navigation }) {
     try{
       serachByName(searchText).then((data)=>{
         setUsers(data.data)
-        console.log(data.data);
       }).catch((err)=>{
         console.log(err);
       })
@@ -81,8 +77,16 @@ function SearchInput({ navigation }) {
       </TouchableOpacity>
         <Modal  style={styles.modal} visible={modalVisible} onRequestClose={() => setModalVisible(false)}>
           <View style={styles.BigDiv}> 
-          
-            <View style={{ flexDirection: 'row', paddingHorizontal: 10,justifyContent:"space-between",gap:10,marginTop:10 }}>
+            {AskToAddHim&&<View style={styles.AskToAddHimDiv}>
+            <TouchableOpacity style={styles.closeTheAskHim} onPress={() => setAskToAddHim(false)}><View  >close</View></TouchableOpacity> 
+            <View>
+              <Text style={styles.AskToAddHimText}>do you whant to start Chat with {dataOfHim.name}</Text>
+              <TouchableOpacity style={styles.addBtn}><Text style={{color:"white"}}>add {dataOfHim.name}</Text></TouchableOpacity> 
+            </View>
+              
+
+            </View>}
+            <View style={{ flexDirection: 'row', paddingHorizontal: 10,justifyContent:"center",gap:10,marginTop:10 }}>
               <TextInput
                 placeholder="Search"
                 value={searchText}
@@ -93,21 +97,13 @@ function SearchInput({ navigation }) {
                 <Text style={styles.closeBtn} onPress={() => setModalVisible(false)}>close</Text>
               </View>
             </View>
-           {/*  <FlatList
-              data={filteredOptions}
-              keyExtractor={item => item.value}
-              renderItem={({ item }) => (
-                <TouchableOpacity style={styles.option} onPress={() => handleSelect(item)}>
-                  <Text style={styles.optionText}>{item.label}</Text>
-                </TouchableOpacity>
-              )}
-            /> */}
+           
             <View>
-            {users &&users.map((elemnt)=>{
-              return <TouchableOpacity style={styles.option} onPress={()=>handleClick(elemnt,elemnt.IdChat)} key={elemnt.id}>
-              <Text style={styles.optionText}>{elemnt.name}</Text>
-            </TouchableOpacity>
-            })} 
+              {users &&users.map((elemnt)=>{
+                return <TouchableOpacity style={styles.option} onPress={()=>handleClick(elemnt,elemnt.IdChat)} key={elemnt.id}>
+                <Text style={styles.optionText}>{elemnt.name}</Text>
+              </TouchableOpacity>
+              })} 
             </View>
           </View>
         </Modal>
@@ -191,7 +187,7 @@ const styles = StyleSheet.create({
    
   },
   closeBtnDiv:{
-    height:50,
+    height:30,
     width:50,
     borderRadius:10,
     backgroundColor: 'red',
@@ -199,12 +195,43 @@ const styles = StyleSheet.create({
     justifyContent:"center",
     textAlign:"center",
     color:"white",
-    margin:0
+    marginTop:10
   },
   closeBtn:{
     fontSize:15,
     color:"white"
+  },
+  AskToAddHimDiv:{
+    display:"flex",
+    justifyContent:'center',
+    alignItems:"center",
+    position:"relative",
+    top:0,
+    backgroundColor:"rgb(0, 0, 0,0.3)",
+    height:"100Vh",
+    width:"100%"
+  },
+  AskToAddHimText:{
+    fontSize:18
+  }, 
+  closeTheAskHim:{
+    position:"absolute",
+    top:10,
+    right:10,
+    backgroundColor:'red',
+    color:"white",
+    padding:8,
+    borderRadius:8
+  },
+  addBtn:{
+    backgroundColor:"green",
+    textAlign:"center",
+    color:"white",
+    borderRadius:8,
+    padding:8,
+    marginTop:5
   }
+
 });
 
 export default SearchInput;
